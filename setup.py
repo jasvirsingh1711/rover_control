@@ -16,6 +16,8 @@ setup(
         (os.path.join('share', package_name, 'urdf'), glob('urdf/*')),
         (os.path.join('share', package_name, 'meshes'), glob('meshes/*')),
         (os.path.join('share', package_name, 'rviz'), glob('rviz/*.rviz')),
+        (os.path.join('share', package_name, 'config'), glob('config/*.yaml')),
+        
         
     ],
     install_requires=['setuptools'],
@@ -27,7 +29,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'forward_kinematics_node = rover_control.forward_kinematics:main',
+            
+            'rover_teleop_bridge = rover_control.rover_teleop_bridge:main',
         
     
         ],

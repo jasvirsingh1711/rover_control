@@ -9,6 +9,18 @@
 
   <depend>rclpy</depend>
   <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>controller_manager</depend>
+  <depend>ros2controlcli</depend>
+  <depend>joint_state_broadcaster</depend>
+  <depend>joint_trajectory_controller</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>xacro</depend>
+  <depend>urdf</depend>
+  
+
+
+  
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>

@@ -2,7 +2,12 @@
     <!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
         Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
         For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
-    <robot name="mars_rover" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="mars_rover" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:arg name="controllers_yaml" default="undefined"/>
+
+
+
 
     <link name = "base_link"/>
     <link name = "base_footprint"/>
@@ -35,7 +40,7 @@
             rpy="0 0 0" />
           <geometry>
             <mesh
-              filename="package://rover_control/meshes/base_link.STL" />
+              filename="file://$(find rover_control)/meshes/base_link.STL" />
           </geometry>
           <material
             name="">
@@ -49,7 +54,7 @@
             rpy="0 0 0" />
           <geometry>
             <mesh
-              filename="package://rover_control/meshes/base_link.STL" />
+              filename="file://$(find rover_control)/meshes/base_link.STL" />
           </geometry>
         </collision>
       </link>
@@ -82,7 +87,7 @@
             rpy="0 0 0" />
           <geometry>
             <mesh
-              filename="package://rover_control/meshes/steering1.STL" />
+              filename="file://$(find rover_control)/meshes/steering1.STL" />
           </geometry>
           <material
             name="">
@@ -96,7 +101,7 @@
             rpy="0 0 0" />
           <geometry>
             <mesh
-              filename="package://rover_control/meshes/steering1.STL" />
+              filename="file://$(find rover_control)/meshes/steering1.STL" />
           </geometry>
         </collision>
       </link>
@@ -136,7 +141,7 @@
             rpy="0 0 0" />
           <geometry>
             <mesh
-              filename="package://rover_control/meshes/wheel1.STL" />
+              filename="file://$(find rover_control)/meshes/wheel1.STL" />
           </geometry>
           <material
             name="">
@@ -188,7 +193,7 @@
             rpy="0 0 0" />
           <geometry>
             <mesh
-              filename="package://rover_control/meshes/steering2.STL" />
+              filename="file://$(find rover_control)/meshes/steering2.STL" />
           </geometry>
           <material
             name="">
@@ -202,7 +207,7 @@
             rpy="0 0 0" />
           <geometry>
             <mesh
-              filename="package://rover_control/meshes/steering2.STL" />
+              filename="file://$(find rover_control)/meshes/steering2.STL" />
           </geometry>
         </collision>
       </link>
@@ -242,7 +247,7 @@
             rpy="0 0 0" />
           <geometry>
             <mesh
-              filename="package://rover_control/meshes/wheel2.STL" />
+              filename="file://$(find rover_control)/meshes/wheel2.STL" />
           </geometry>
           <material
             name="">
@@ -294,7 +299,7 @@
             rpy="0 0 0" />
           <geometry>
             <mesh
-              filename="package://rover_control/meshes/steering3.STL" />
+              filename="file://$(find rover_control)/meshes/steering3.STL" />
           </geometry>
           <material
             name="">
@@ -308,7 +313,7 @@
             rpy="0 0 0" />
           <geometry>
             <mesh
-              filename="package://rover_control/meshes/steering3.STL" />
+              filename="file://$(find rover_control)/meshes/steering3.STL" />
           </geometry>
         </collision>
       </link>
@@ -348,7 +353,7 @@
             rpy="0 0 0" />
           <geometry>
             <mesh
-              filename="package://rover_control/meshes/wheel3.STL" />
+              filename="file://$(find rover_control)/meshes/wheel3.STL" />
           </geometry>
           <material
             name="">
@@ -400,7 +405,7 @@
             rpy="0 0 0" />
           <geometry>
             <mesh
-              filename="package://rover_control/meshes/steering4.STL" />
+              filename="file://$(find rover_control)/meshes/steering4.STL" />
           </geometry>
           <material
             name="">
@@ -414,7 +419,7 @@
             rpy="0 0 0" />
           <geometry>
             <mesh
-              filename="package://rover_control/meshes/steering4.STL" />
+              filename="file://$(find rover_control)/meshes/steering4.STL" />
           </geometry>
         </collision>
       </link>
@@ -455,7 +460,7 @@
           <geometry>
             
             <mesh
-              filename="package://rover_control/meshes/wheel4.STL" />
+              filename="file://$(find rover_control)/meshes/wheel4.STL" />
           </geometry>
           <material
             name="">
@@ -486,348 +491,74 @@
           xyz="0 0 1" />
       </joint>
 
-    <transmission name="wheel_1_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="wheel_1">
-        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="motor_1">
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-    </transmission>
 
-    <transmission name="wheel_2_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="wheel_2">
-        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="motor_2">
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-    </transmission>
+  <ros2_control name="GazeboSimSystem" type="system">
+    <hardware>
+        <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+    </hardware>
+        <joint name="steer1">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
 
-    <transmission name="wheel_3_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="wheel_3">
-        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="motor_3">
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-    </transmission>
+        <joint name="steer2">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
 
-    <transmission name="wheel_4_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="wheel_4">
-        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="motor_4">
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-    </transmission>
+        <joint name="steer_3">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+
+        <joint name="steer4">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+
+        <joint name="wheel_1">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+
+        <joint name="wheel_2">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+
+        <joint name="wheel_3">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+        <joint name="wheel_4">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+    </ros2_control>
+
     
-    <transmission name="steer_1_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="steer1">
-        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="motor_steer_1">
-        <mechanicalReduction>30</mechanicalReduction>
-      </actuator>
-    </transmission>
 
-    <transmission name="steer_2_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="steer2">
-        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="motor_steer_2">
-        <mechanicalReduction>30</mechanicalReduction>
-      </actuator>
-    </transmission>
 
-    <transmission name="steer_3_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="steer_3">
-        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="motor_steer_3">
-        <mechanicalReduction>30</mechanicalReduction>
-      </actuator>
-    </transmission>
 
-    <transmission name="steer_4_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="steer4">
-        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="motor_steer_4">
-        <mechanicalReduction>30</mechanicalReduction>
-      </actuator>
-    </transmission>
 
- <gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-    </plugin>
-  </gazebo>
 
-<link name="camera_link">
-  <visual>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <geometry>
-      <box size="0.1 0.1 0.1"/> <!-- Example visual geometry, adjust as needed -->
-    </geometry>
-  </visual>
-  <collision>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <geometry>
-      <box size="0.1 0.1 0.1"/> <!-- Example collision geometry, adjust as needed -->
-    </geometry>
-  </collision>
-</link>
-<link name="camera_link_1">
-  <visual>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <geometry>
-      <box size="0.1 0.1 0.1"/> <!-- Example visual geometry, adjust as needed -->
-    </geometry>
-  </visual>
-  <collision>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <geometry>
-      <box size="0.1 0.1 0.1"/> <!-- Example collision geometry, adjust as needed -->
-    </geometry>
-  </collision>
-</link>
-<link name="camera_link_2">
-  <visual>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <geometry>
-      <box size="0.1 0.1 0.1"/> <!-- Example visual geometry, adjust as needed -->
-    </geometry>
-  </visual>
-  <collision>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <geometry>
-      <box size="0.1 0.1 0.1"/> <!-- Example collision geometry, adjust as needed -->
-    </geometry>
-  </collision>
-</link>
-<link name="camera_optical_link">
-</link>
-<joint name="camera_optical_joint" type="fixed">
-  <parent link="camera_link"/>
-  <child link="camera_optical_link"/>
-  <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/> <!-- Adjust position as needed -->
-</joint>
-<link name="camera_optical_link_1">
-</link>
-<joint name="camera_optical_joint_1" type="fixed">
-  <parent link="camera_link_1"/>
-  <child link="camera_optical_link_1"/>
-  <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/> <!-- Adjust position as needed -->
-</joint>
-<link name="camera_optical_link_2">
-</link>
-<joint name="camera_optical_joint_2" type="fixed">
-  <parent link="camera_link_2"/>
-  <child link="camera_optical_link_2"/>
-  <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/> <!-- Adjust position as needed -->
-</joint>
-<joint name="camera_joint" type="fixed">
-  <parent link="chassis"/>
-  <child link="camera_link"/>
-  <origin xyz="0.1 0 0.1" rpy="0 0 0"/> <!-- Adjust position as needed -->
-</joint>
-<joint name="camera_joint_1" type="fixed">
-  <parent link="chassis"/>
-  <child link="camera_link_1"/>
-  <origin xyz="0 0.24 0.1" rpy="0 0 1.57"/> <!-- Adjust position as needed -->
-</joint>
-<joint name="camera_joint_2" type="fixed">
-  <parent link="chassis"/>
-  <child link="camera_link_2"/>
-  <origin xyz="0 -0.24 0.1" rpy="0 0 -1.57"/> <!-- Adjust position as needed -->
-</joint>
+  
 
-<!-- Camera plugin -->
-<gazebo reference="camera_link_1">
-  <sensor type="camera" name="camera1">
-    <visualize>true</visualize>
-    <update_rate>30.0</update_rate>
-    <camera name="camera_ir_1">
-      <horizontal_fov>1.047198</horizontal_fov>
-      <image>
-        <width>640</width>
-        <height>480</height>
-        <format>R8G8B8</format>
-      </image>
-      <!-- <clip>
-        <near>0.05</near>
-        <far>3</far>
-      </clip> -->
-    </camera>
-    <plugin name="camera_controller_1" filename="libgazebo_ros_camera.so">
-        <alwaysOn>true</alwaysOn>
-        <updateRate>0.0</updateRate>
-        <cameraName>camera_ir_1</cameraName>
-        <imageTopicName>/camera1/color/image_raw</imageTopicName>
-        <cameraInfoTopicName>/camera1/color/camera_info</cameraInfoTopicName>
-        <frameName>camera_optical_link_1</frameName>
-        <hackBaseline>0.07</hackBaseline>
-        <distortionK1>0.0</distortionK1>
-        <distortionK2>0.0</distortionK2>
-        <distortionK3>0.0</distortionK3>
-        <distortionT1>0.0</distortionT1>
-        <distortionT2>0.0</distortionT2>
-    </plugin>
-  </sensor>
-</gazebo>
-<gazebo reference="camera_link_2">
-  <sensor type="camera" name="camera2">
-    <visualize>true</visualize>
-    <update_rate>30.0</update_rate>
-    <camera name="camera_ir_2">
-      <horizontal_fov>1.047198</horizontal_fov>
-      <image>
-        <width>640</width>
-        <height>480</height>
-        <format>R8G8B8</format>
-      </image>
-      <!-- <clip>
-        <near>0.05</near>
-        <far>3</far>
-      </clip> -->
-    </camera>
-    <plugin name="camera_controller_2" filename="libgazebo_ros_camera.so">
-        <alwaysOn>true</alwaysOn>
-        <updateRate>0.0</updateRate>
-        <cameraName>camera_ir_2</cameraName>
-        <imageTopicName>/camera2/color/image_raw</imageTopicName>
-        <cameraInfoTopicName>/camera2/color/camera_info</cameraInfoTopicName>
-        <frameName>camera_optical_link_2</frameName>
-        <hackBaseline>0.07</hackBaseline>
-        <distortionK1>0.0</distortionK1>
-        <distortionK2>0.0</distortionK2>
-        <distortionK3>0.0</distortionK3>
-        <distortionT1>0.0</distortionT1>
-        <distortionT2>0.0</distortionT2>
+
+
+
+  <gazebo>
+        <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+            <parameters>$(find rover_control)/config/my_controllers.yaml</parameters>
         </plugin>
-  </sensor>
-</gazebo>
-<gazebo reference="camera_link">
-  <sensor type="depth" name="kinect_camera">
-    <visualize>true</visualize>
-    <update_rate>30.0</update_rate>
-    <camera name="camera_ir">
-      <horizontal_fov>1.047198</horizontal_fov>
-      <image>
-        <width>640</width>
-        <height>480</height>
-        <format>R8G8B8</format>
-      </image>
-      <!-- <clip>
-        <near>0.05</near>
-        <far>3</far>
-      </clip> -->
-    </camera>
-    <plugin name="camera_plugin" filename="libgazebo_ros_openni_kinect.so">
-          <baseline>0.2</baseline>
-          <alwaysOn>true</alwaysOn>
-          <updateRate>0.0</updateRate>
-          <cameraName>camera_ir</cameraName>
-          <imageTopicName>/camera/color/image_raw</imageTopicName>
-          <cameraInfoTopicName>/camera/color/camera_info</cameraInfoTopicName>
-          <depthImageTopicName>/camera/depth/image_raw</depthImageTopicName>
-          <depthImageCameraInfoTopicName>/camera/depth/camera_info</depthImageCameraInfoTopicName>
-          <pointCloudTopicName>/camera/depth/points</pointCloudTopicName>
-          <frameName>camera_optical_link</frameName>
-          <pointCloudCutoff>0.5</pointCloudCutoff>
-          <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
-          <distortionK1>0</distortionK1>
-          <distortionK2>0</distortionK2>
-          <distortionK3>0</distortionK3>
-          <distortionT1>0</distortionT1>
-          <distortionT2>0</distortionT2>
-          <CxPrime>0</CxPrime>
-          <Cx>0</Cx>
-          <Cy>0</Cy>
-          <focalLength>0</focalLength>
-          <hackBaseline>0</hackBaseline>
-        </plugin>
-  </sensor>
-</gazebo>
-
-
-<!-- IMU implementation -->
-<link name="imu_link">
-</link>
-<origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
-<joint name="imu_joint" type="fixed">
-<parent link="chassis"/>
-<child link="imu_link"/>
-</joint>
-
-<gazebo reference="imu_link">
-    <gravity>true</gravity>
-    <sensor name="imu_sensor" type="imu">
-      <always_on>true</always_on>
-      <update_rate>100</update_rate>
-      <visualize>true</visualize>
-      <topic>__default_topic__</topic>
-      <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
-        <topicName>/imu/data</topicName>
-        <bodyName>imu_link</bodyName>
-        <updateRateHZ>100.0</updateRateHZ>
-        <gaussianNoise>0.005</gaussianNoise>
-        <xyzOffset>0 0 0</xyzOffset>
-        <rpyOffset>0 0 0</rpyOffset>
-        <frameName>imu_link</frameName>
-        <initialOrientationAsReference>false</initialOrientationAsReference>
-      </plugin>
-      <pose>0 0 0 0 0 0</pose>
-    </sensor>
-  </gazebo>
-
-
-  <!-- GPS implementation on rover -->
-
-  <!-- Gazebo plugin for the GPS sensor -->
-  <!-- <gazebo>
-    <plugin name="gps_controller" filename="libhector_gazebo_ros_gps.so">
-      <robotNamespace>/</robotNamespace>
-      <updateRate>40</updateRate>
-      <bodyName>base_link</bodyName>
-      <frameId>base_link</frameId>
-      <topicName>gps/fix</topicName>
-      <velocityTopicName>gps/vel</velocityTopicName>
-      <referenceLatitude>$(optenv GAZEBO_WORLD_LAT 49.9)</referenceLatitude>
-      <referenceLongitude>$(optenv GAZEBO_WORLD_LON 8.9)</referenceLongitude>
-      <referenceHeading>90</referenceHeading>
-      <referenceAltitude>0</referenceAltitude>
-      <drift>0.0001 0.0001 0.0001</drift>
-    </plugin>
-  </gazebo> -->
-
-<gazebo>
-    <plugin name="gazebo_ros_diff_drive" filename="libgazebo_ros_diff_drive.so">
-
-      <num_wheel_pairs>2</num_wheel_pairs>
-
-      <left_joint>wheel_1</left_joint>
-      <left_joint>wheel_4</left_joint>
-
-      <right_joint>wheel_2</right_joint>
-      <right_joint>wheel_3</right_joint>
-
-      <wheel_separation>0.587</wheel_separation> <wheel_diameter>0.22</wheel_diameter>   <command_topic>/cmd_vel</command_topic>   <odometry_topic>/odom</odometry_topic>
-      <odometry_frame>odom</odometry_frame>
-      <robot_base_frame>base_link</robot_base_frame> <publish_odom>true</publish_odom>
-      <publish_odom_tf>true</publish_odom_tf>
-      <publish_wheel_tf>false</publish_wheel_tf>
-      <update_rate>100.0</update_rate>
-
-    </plugin>
-  </gazebo>
+    </gazebo>
 
 </robot>
